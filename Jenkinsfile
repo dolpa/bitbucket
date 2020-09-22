@@ -13,6 +13,14 @@ pipeline {
     }
 
     stages {
+        
+        stage('Get Version') {
+            steps {
+                script {
+                    env.version = getVersion()
+                }
+            }
+        }
 
         stage('Build') {
             steps {
@@ -28,4 +36,23 @@ pipeline {
             }
         }
     }
+}
+
+def getVersion() {
+    branchName = env.BRANCH_NAME.trim()
+
+    if( branchName == "master" ) {
+        version = "master-SNAPSHOT"
+    }
+    else if(branchName.startsWith("feature") ) {
+        version = branchName.split('/')[1]+"-SNAPSHOT"
+    }
+    else if( branchName.startsWith("hotfix")) {
+        versin = branchName.split('/')[1]+"-SNAPSHOT"
+    }
+    else if( branchName.startsWith("release") ) {
+        version = branchName.split('/')[1]
+    }
+
+    return version
 }
