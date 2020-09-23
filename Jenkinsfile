@@ -26,10 +26,15 @@ pipeline {
             steps {
                 // TODO: Need to ran gradle script with will build all docker images
                 echo 'Building Docker Images ... '
+                sh "./gradlew -Pversion=${env.version} docker"
             }
         }
 
         stage('Deploy') {
+            when {
+                // Only say hello if a "greeting" is requested
+                expression { env.BRANCH_NAME.trim().startsWith("release") == 'greeting' }
+            }
             steps {
                 // TODO: need to push all images to Docker Hub
                 echo 'Pushing Docker Images to Hub ...'
