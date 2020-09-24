@@ -31,8 +31,6 @@ pipeline {
             steps {
                 // TODO: Need to ran gradle script with will build all docker images
                 echo 'Building Docker Images ... '
-                sh "cat Dockerfile"
-                sh "ls -la "
                 sh "./gradlew -Pversion=${env.app_version} docker-latest"
             }
         }
