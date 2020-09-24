@@ -6,6 +6,11 @@ pipeline {
     triggers {
         pollSCM('H/4 0 * * *')
     }
+
+    environment {
+        version     = ''
+        app_version = '7.5.2'
+    }
     
     options {
         timestamps()
@@ -17,7 +22,7 @@ pipeline {
         stage('Get Version') {
             steps {
                 script {
-                    env.version = getVersion()
+                    setVersion()
                 }
             }
         }
@@ -26,7 +31,9 @@ pipeline {
             steps {
                 // TODO: Need to ran gradle script with will build all docker images
                 echo 'Building Docker Images ... '
-                sh "./gradlew -Pversion=${env.version} docker"
+                sh "cat Dockerfile"
+                sh "ls -la "
+                sh "./gradlew -Pversion=${env.app_version} docker-latest"
             }
         }
 
@@ -43,21 +50,20 @@ pipeline {
     }
 }
 
-def getVersion() {
+def setVersion() {
     branchName = env.BRANCH_NAME.trim()
 
     if( branchName == "master" ) {
-        version = "master-SNAPSHOT"
+        env.version = "master-SNAPSHOT"
     }
     else if(branchName.startsWith("feature") ) {
-        version = branchName.split('/')[1]+"-SNAPSHOT"
+        env.version = branchName.split('/')[1]+"-SNAPSHOT"
     }
     else if( branchName.startsWith("hotfix")) {
-        versin = branchName.split('/')[1]+"-SNAPSHOT"
+        env.versin = branchName.split('/')[1]+"-SNAPSHOT"
     }
     else if( branchName.startsWith("release") ) {
-        version = branchName.split('/')[1]
+        env.version = branchName.split('/')[1]
+        env.app_version = version
     }
-
-    return version
 }
