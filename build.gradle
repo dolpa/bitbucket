@@ -20,6 +20,9 @@ if (!project.hasProperty("app_version")) {
   println "App Version: ${app_version}"
 }
 
+println "Version: ${version}"
+println "App Version: ${app_version}"
+
 docker {
     name "${docker_hub_repo}/${project.name}:${version}"
     tag '-version', "${docker_hub_repo}/${project.name}:${project.version}"
