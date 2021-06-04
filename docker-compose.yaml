@@ -1,0 +1,18 @@
+version: '3'
+services:
+  bitbucket:
+    image: ${DOCKER_REPO}/${BITBUCKET_IMAGE}:${BITBUCKET_TAG}
+    ports:
+      - "7990:${BITBUCKET_HTTP_PORT}"
+      - "7999:${BITBUCKET_SSH_PORT}"
+      - "7992:${BITBUCKET_SEARCH_PORT}"
+    volumes:
+      - ./bitbucket_home:${BITBUCKET_HOME}
+    # healthcheck:
+    #   # test: [ "CMD", "curl", "--fail", "--user", "${CHECK_USER}:${CHECK_PASSWORD}", "http://localhost:${JENKINS_PORT}" ]
+    #   test: curl --fail http://localhost:8080/login
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 5
+      
+    
