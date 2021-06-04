@@ -38,7 +38,7 @@ pipeline {
         stage('Deploy') {
             when {
                 // Only say hello if a "greeting" is requested
-                expression { env.BRANCH_NAME.trim().startsWith("release") == 'greeting' }
+                expression { env.BRANCH_NAME.trim().startsWith("release") }
             }
             steps {
                 // TODO: need to push all images to Docker Hub
