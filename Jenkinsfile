@@ -9,7 +9,7 @@ pipeline {
 
     environment {
         version     = ''
-        app_version = '7.5.2'
+        app_version = '7.6.7'
     }
     
     options {
@@ -31,7 +31,7 @@ pipeline {
             steps {
                 // TODO: Need to ran gradle script with will build all docker images
                 echo 'Building Docker Images ... '
-                sh "./gradlew -Pversion=${env.app_version} docker"
+                sh "./gradlew -Pversion=${env.app_version} docker --debug"
             }
         }
 

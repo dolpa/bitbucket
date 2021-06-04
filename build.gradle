@@ -5,7 +5,7 @@
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds
  */
 plugins {
-    id 'com.palantir.docker' version '0.25.0'
+    id 'com.palantir.docker' version '0.26.0'
 }
 
 def docker_hub_repo = 'dolpa'
