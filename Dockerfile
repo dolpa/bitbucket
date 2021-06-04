@@ -15,7 +15,7 @@ ARG app=bitbucket
 ARG uid=2036
 ARG gid=2036
 ARG http_port=3000
-ARG version="7.5.0"
+ARG version="7.6.7"
 
 # Environmrnt
 ENV user=${user}
