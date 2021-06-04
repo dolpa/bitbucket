@@ -43,6 +43,7 @@ pipeline {
             steps {
                 // TODO: need to push all images to Docker Hub
                 echo 'Pushing Docker Images to Hub ...'
+                echo "Branch Name: ${BRANCH_NAME}"
             }
         }
     }
